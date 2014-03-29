@@ -1,0 +1,27 @@
+#! /usr/bin/python
+
+import os
+import datetime
+import pymongo
+from pymongo import MongoClient
+
+#murl = os.environ.get('MongoHQ_URL')
+murl = 'mongodb://pyuser:l1st3n@alex.mongohq.com:10037/mongo_idm'
+
+client = MongoClient(murl)
+
+db = client.mongo_idm
+#print db.collection_names()
+
+collection = db.identities
+
+print collection.count()
+
+name = raw_input('Name:')
+email = raw_input('Email:')
+role = raw_input('Role:')
+
+collection.insert({'name':name, 'email':email, 'role': role})
+
+for i in collection.find():
+  print i
